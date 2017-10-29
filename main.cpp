@@ -17,6 +17,9 @@ int main(int argc, char* argv[]) {
         std::cout << "Failed to open video file" << std::endl;
         return 1;
     }
+    
+    // Frames
+    cv::Mat frame;
 
     // until the end of the video
     while(videoCapture.read(frame)) {
