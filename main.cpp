@@ -45,6 +45,11 @@ int main(int argc, char* argv[]) {
                          cv::RETR_LIST, // ierarchy type
                          cv::CHAIN_APPROX_NONE);
         
+        // Draw contours with blue(255, 0, 0) pen of thickness 2
+        for(size_t idx = 0; idx < contoursPoints.size(); idx++) {
+            cv::drawContours(frame, contoursPoints, idx, cv::Scalar(255, 0, 0), 2);
+        }
+        
         cv::imshow("tracking2", frame);
 
         // delay
