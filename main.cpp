@@ -26,6 +26,11 @@ int main(int argc, char* argv[]) {
 
     // until the end of the video
     while(videoCapture.read(frame)) {
+        // Reduce noise
+        cv::GaussianBlur(frame, blurredFrame, {5, 5}, 0);
+        // Convert to HSV
+        cv::cvtColor(blurredFrame, hsvFrame, cv::COLOR_BGR2HSV);
+        
         cv::imshow("tracking2", frame);
 
         // delay
