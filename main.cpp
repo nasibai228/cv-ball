@@ -20,6 +20,9 @@ int main(int argc, char* argv[]) {
     
     // Frames
     cv::Mat frame;
+    cv::Mat blurredFrame;
+    cv::Mat hsvFrame;
+    cv::Mat maskFrame;
 
     // until the end of the video
     while(videoCapture.read(frame)) {
