@@ -17,9 +17,39 @@ int main(int argc, char* argv[]) {
         std::cout << "Failed to open video file" << std::endl;
         return 1;
     }
+    
+    // Frames
+    cv::Mat frame;
+    cv::Mat blurredFrame;
+    cv::Mat hsvFrame;
+    cv::Mat maskFrame;
 
+    // Container for object's countours points
+    std::vector<std::vector<cv::Point> > contoursPoints;
+    
     // until the end of the video
     while(videoCapture.read(frame)) {
+        // Reduce noise
+        cv::GaussianBlur(frame, blurredFrame, {5, 5}, 0);
+        // Convert to HSV
+        cv::cvtColor(blurredFrame, hsvFrame, cv::COLOR_BGR2HSV);
+        
+        // Find object between 2 color schemes (orange and yellow)
+        cv::inRange(hsvFrame,
+                    cv::Scalar(14, 160, 233),
+                    cv::Scalar(35, 255, 255),
+                    maskFrame);
+        
+        cv::findContours(maskFrame.clone(),
+                         contoursPoints,
+                         cv::RETR_LIST, // ierarchy type
+                         cv::CHAIN_APPROX_NONE);
+        
+        // Draw contours with blue(255, 0, 0) pen of thickness 2
+        for(size_t idx = 0; idx < contoursPoints.size(); idx++) {
+            cv::drawContours(frame, contoursPoints, idx, cv::Scalar(255, 0, 0), 2);
+        }
+        
         cv::imshow("tracking2", frame);
 
         // delay
