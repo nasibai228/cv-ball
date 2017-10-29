@@ -1,7 +1,6 @@
 #include <iostream>
 #include <string>
 
-#include <opencv2/tracking.hpp>
 #include <opencv2/opencv.hpp>
 
 int main(int argc, char* argv[]) {
